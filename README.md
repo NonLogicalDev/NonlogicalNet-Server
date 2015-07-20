@@ -22,6 +22,14 @@ and, poof you have your cleanly provisioned configuration running on your local 
 
 Kinda reminiscent of `rm ./a.out && g++ hello.cpp` isn't it. 
 
+## Prerequisites
+
+- UNIX based OS
+- Python
+- Ruby
+- Ansible
+- Vagrant
+
 ## Plans For Improvement
 
 Once I'll have time to figure out how CoreOS works. I want to tweak this workflow so that it is possible to easely
