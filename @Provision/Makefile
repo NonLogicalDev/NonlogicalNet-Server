@@ -30,12 +30,12 @@ wipe: clean
 PROV.dev: _installSSHConfigDev
 	$(call mk,"$@")
 	make -C ../@Infrastructure HOST.dev
-	#ansible-playbook -i $(HOST_FILE) playbook.yml --sudo
+	ansible-playbook -i $(HOST_FILE) playbook.yml --sudo
 
 PROV.prod: _installSSHConfigProd
 	$(call mk,"$@")
 	make -C ../@Infrastructure HOST.prod
-	#ansible-playbook -i $(HOST_FILE) playbook.yml --sudo
+	ansible-playbook -i $(HOST_FILE) playbook.yml --sudo
 
 # Misc ================================================================
 
@@ -45,4 +45,4 @@ _installSSHConfigDev:
 
 .PHONY: _installSSHConfigProd
 _installSSHConfigProd:
-	make -C ../@Utils CONF.prov CONF.install
+	make -C ../@Utils CONF.prod CONF.install

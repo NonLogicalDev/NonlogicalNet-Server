@@ -37,7 +37,7 @@ wipe: clean LINK.off
 #######################################################################
 #                        Generating Ssh Keys                          #
 #######################################################################
-.PHONY: KEY.prod KEY.dev
+.PHONY: CONF.prod CONF.dev CONF.install
 
 CONF.prod: SSH.conf.prod
 
@@ -50,7 +50,7 @@ CONF.install:
 #######################################################################
 #                             Link Things                             #
 #######################################################################
-.PHONY: LINK.keys LINK.keys.unlink
+.PHONY: LINK.on LINK.off
 
 LINK.on:
 	$(call mk,"$@")

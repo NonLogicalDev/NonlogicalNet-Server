@@ -1,2 +1,2 @@
 [web_servers]
-devbox
+devbox prov_user=vagrant prov_user_home=/home/vagrant

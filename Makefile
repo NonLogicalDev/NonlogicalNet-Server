@@ -28,23 +28,25 @@ neat:
 	find . -iname .DS_Store | xargs rm
 
 clean: neat
+	@touch $(VAR_FILE) # Hack to avoid load errors
 	make -C @Infrastructure clean
 	make -C @Provision clean
 	make -C @Utils clean
 	rm -rf $(VAR_FILE)
 
 wipe: clean
+	@touch $(VAR_FILE) # Hack to avoid load errors
 	make -C @Infrastructure wipe
 	make -C @Provision wipe
 	make -C @Utils wipe
+	rm -rf $(VAR_FILE)
 
 #######################################################################
 #                                INIT                                 #
 #######################################################################
 .PHONY: init
 
-init:
-	rm -f .Makefile.vars
+init: $(VAR_FILE)
 	@make -C @Utils LINK.off > /dev/null
 	make -C @Utils LINK.on
 

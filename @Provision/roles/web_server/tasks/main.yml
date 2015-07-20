@@ -35,8 +35,8 @@
 - name: Place SSL files
   copy: src={{ item.src }} dest={{ item.dest }}
   with_items:
-    - { src: 'files/ssl/{{ ssl_name }}.crt', dest: '{{ nginx_ssl_certificate }}' }
-    - { src: 'files/ssl/{{ ssl_name }}.key', dest: '{{ nginx_ssl_key }}' }
+    - { src: '{{ ssl_folder }}/{{ ssl_name }}.crt', dest: '{{ nginx_ssl_certificate }}' }
+    - { src: '{{ ssl_folder }}/{{ ssl_name }}.key', dest: '{{ nginx_ssl_key }}' }
 
 - name: Check if DHParam Exists
   stat: path={{ nginx_ssl_dhparam }}

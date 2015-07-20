@@ -1,0 +1,2 @@
+[web_servers]
+prodbox prov_user=root prov_user_home=/
