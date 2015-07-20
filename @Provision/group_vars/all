@@ -1,0 +1,17 @@
+---
+# Global
+hostname: nonlogical.net
+
+## Web Stuff
+net_group: www-data
+
+## SSL Certificate Location
+ssl_name: server
+
+# Nginx Configuration
+nginx_site_name: main
+
+# IRC Configs
+irc_subdomain: irc
+irc_server_description: Just a server
+irc_network_name: NonLogical|Net

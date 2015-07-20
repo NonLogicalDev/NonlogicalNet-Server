@@ -1,0 +1,47 @@
+---
+
+- name: Installing IRC Server
+  apt: name=inspircd state=present
+
+#######################################################################
+#                      Creating Users And Groups                      #
+#######################################################################
+
+- name: Creating IRC Group
+  group: name=irc state=present
+
+- name: Creating IRC User
+  user: name=irc group=irc shell=/bin/bash append=yes
+
+#######################################################################
+#                     Creating Necessairy Folders                     #
+#######################################################################
+
+- name: Creating /etc/inspircd/logs
+  file: path=/etc/inspircd/logs owner=irc group=irc state=directory
+
+- name: Creating /var/run/inspircd
+  file: path=/var/run/inspircd owner=irc group=irc state=directory
+
+#######################################################################
+#                        Configure The Server                         #
+#######################################################################
+
+- name: Configuring the IRC Server
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+  - { src: 'conf/inspircd.conf', dest: '/etc/inspircd/inspircd.conf' }
+  - { src: 'conf/inspircd.motd', dest: '/etc/inspircd/inspircd.motd' }
+  - { src: 'conf/opers.conf',    dest: '/etc/inspircd/opers.conf' }
+  - { src: 'conf/link.conf',     dest: '/etc/inspircd/link.conf' }
+  - { src: 'conf/modules.conf',  dest: '/etc/inspircd/modules.conf' }
+  notify: Restart IRC
+
+- name: Configuring Daemon
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+  - { src: 'inspircd',  dest: '/etc/default/inspircd' }
+  notify: Restart IRC
+
+- name: Starting IRC
+  service: name=inspircd state=running

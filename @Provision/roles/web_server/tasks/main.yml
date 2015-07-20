@@ -1,0 +1,50 @@
+---
+- name: Install Nginx
+  apt: pkg=nginx state=installed
+
+#######################################################################
+#                      Creating Groups And Users                      #
+#######################################################################
+
+- name: Creating Nginx Group
+  group: name={{ nginx_group }} state=present
+
+- name: Create Nginx user
+  user: name={{ nginx_user }} shell=/bin/bash group={{ nginx_group }} append=yes
+
+#######################################################################
+#                          Configuring Nginx                          #
+#######################################################################
+
+- name: Add Nginx Config
+  template: src={{ item.src }} dest={{ item.dest }} 
+  with_items:
+    - { src: 'default.conf',      dest: '/etc/nginx/conf.d/default.conf' }
+    - { src: 'ssl.conf',          dest: '{{ nginx_ssl_config_file }}' }
+    - { src: 'nginx.conf',        dest: '/etc/nginx/nginx.conf' }
+    - { src: 'files/sites/{{ nginx_site_name }}',  dest: '{{ nginx_site_dir }}/{{ nginx_site_name }}' }
+  notify: Restart nginx
+
+#######################################################################
+#                        Setting Up SSL certs                         #
+#######################################################################
+
+- name: Create SSL dir
+  file: path={{ ssl_dir }} state=directory
+
+- name: Place SSL files
+  copy: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: 'files/ssl/{{ ssl_name }}.crt', dest: '{{ nginx_ssl_certificate }}' }
+    - { src: 'files/ssl/{{ ssl_name }}.key', dest: '{{ nginx_ssl_key }}' }
+
+- name: Check if DHParam Exists
+  stat: path={{ nginx_ssl_dhparam }}
+  register: ssl_dhparam
+
+- name: Display DHparam
+  debug: msg="DHPARAM exists {{ ssl_dhparam.stat.exists }}"
+
+- name: Generate SSL dhparam
+  shell: openssl dhparam -out {{ nginx_ssl_dhparam }} 2048
+  when: ssl_dhparam.stat.exists != True

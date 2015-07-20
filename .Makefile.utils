@@ -1,0 +1,15 @@
+TOP := $(dir $(lastword $(MAKEFILE_LIST)))
+CONFIG_SCRIPT := $(abspath $(TOP)/@Utils/scripts/genBuildVars.py)
+CONFIG_FILE   := $(abspath $(TOP)/Config.json)
+
+#######################################################################
+#                          Global Functions                           #
+#######################################################################
+
+define mk
+      @tput setaf 2
+      @echo === Making [$1] ===
+      @tput sgr0
+endef
+
+# vim: ft=Make

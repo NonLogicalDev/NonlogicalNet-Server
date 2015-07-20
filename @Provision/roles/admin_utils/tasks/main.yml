@@ -1,0 +1,6 @@
+---
+- name: Instulling Tmux
+  apt: pkg=tmux state=installed
+
+- name: Configuring Tmux
+  copy: src=tmux.conf dest=/home/{{ prov_user }}/.tmux.conf

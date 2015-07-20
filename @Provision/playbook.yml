@@ -1,0 +1,9 @@
+---
+- name: Provision the environment for my Website
+  hosts: web_servers
+  sudo: yes
+  roles:
+  - update_apt
+  - admin_utils
+  - irc_server
+  - web_server

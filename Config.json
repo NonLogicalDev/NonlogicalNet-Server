@@ -1,0 +1,6 @@
+{
+  "HOST_LOCATION": "nonlogical.net",
+  "HOST_USER":     "root",
+  "SSH_PEM_NAME":  "FrodoBaggins.pem",
+  "LOCAL_KEY_DIR": "~/PROVISION_DATA/NonlogicalNet/keys"
+}

@@ -1,0 +1,24 @@
+---
+## Web Stuff
+net_group: www-data
+
+## SSL Certificate Location
+ssl_name: server
+ssl_dir: /ssl
+
+# Nginx Configuration
+nginx_site_name: main
+
+nginx_worker_processes: 4
+nginx_user: nginx
+nginx_group: "{{ net_group }}"
+nginx_pid_file: /var/run/nginx.pid
+nginx_ssl_config_file: /etc/nginx/conf.d/ssl.conf
+nginx_site_dir:    /etc/nginx/sites-enabled
+
+nginx_site_config: "{{ nginx_site_dir }}/*"
+nginx_ssl_certificate: "{{ ssl_dir }}/{{ ssl_name }}.crt"
+nginx_ssl_key: "{{ ssl_dir }}/{{ ssl_name }}.key"
+nginx_ssl_dhparam: "{{ ssl_dir }}/dhparam.pem"
+
+# vim: ft=ansible

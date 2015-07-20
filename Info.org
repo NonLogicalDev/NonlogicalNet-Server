@@ -1,0 +1,14 @@
+* Project Info
+** Intro
+
+  This is my personal website
+
+** Developer Requirenments:
+  - Vagrant
+  - Virtualbox
+  - Ansible
+  - Haskell
+
+* TASKS:
+  - [X] Create a sample front page
+  - [ ] Create a simple server in Haskell that vends files
